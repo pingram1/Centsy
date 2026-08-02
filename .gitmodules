@@ -1,0 +1,6 @@
+[submodule ".cursor/skills-sources/awesome-design-skills"]
+	path = .cursor/skills-sources/awesome-design-skills
+	url = https://github.com/bergside/awesome-design-skills.git
+[submodule ".cursor/skills-sources/awesome-agent-skills"]
+	path = .cursor/skills-sources/awesome-agent-skills
+	url = https://github.com/VoltAgent/awesome-agent-skills.git
