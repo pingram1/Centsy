@@ -46,4 +46,3 @@ The `pentesting-everything` skill guides authorized security assessments. The fu
 ```bash
 npx skills add m14r41/PentestingEverything --skill pentesting-everything --agent cursor
 ```
-
