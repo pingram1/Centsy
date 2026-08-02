@@ -10,22 +10,24 @@ Centsy is a modern, AI-powered finance tracker designed to eliminate manual data
 
 ## Agent Skills
 
-This project includes skills from two curated registries:
+This project includes skills from curated registries and security knowledge bases:
 
 | Registry | Source | What's included |
 |----------|--------|-----------------|
 | **Design skills** (67) | [bergside/awesome-design-skills](https://github.com/bergside/awesome-design-skills) | UI design system skills in `.cursor/skills/` (clean, minimal, glassmorphism, etc.) |
 | **Agent skills catalog** | [VoltAgent/awesome-agent-skills](https://github.com/VoltAgent/awesome-agent-skills) | Browsable index of 1,400+ official and community skills |
+| **Pentesting** | [m14r41/PentestingEverything](https://github.com/m14r41/PentestingEverything) | Authorized security assessment workflow + full knowledge base submodule |
+| **Stripe** | [stripe/ai](https://github.com/stripe/ai) | Payment integration best practices (`stripe-best-practices`) |
 
-Both registries are vendored as git submodules under `.cursor/skills-sources/`.
+Registries are vendored as git submodules under `.cursor/skills-sources/`.
 
-### Sync design skills
+### Sync skills
 
 ```bash
 ./scripts/sync-skills.sh
 ```
 
-Updates submodules and copies the latest design `SKILL.md` files into `.cursor/skills/`.
+Updates submodules and copies the latest design and pentesting skill files into `.cursor/skills/`.
 
 ### Install a skill from the agent catalog
 
@@ -36,4 +38,12 @@ Browse `.cursor/skills-sources/awesome-agent-skills/README.md`, then:
 ```
 
 Installed skills are placed in `.cursor/skills/<name>/` for Cursor.
+
+### PentestingEverything
+
+The `pentesting-everything` skill guides authorized security assessments. The full knowledge base lives at `.cursor/skills-sources/pentesting-everything/` (108 docs, 23 domains). Install standalone with:
+
+```bash
+npx skills add m14r41/PentestingEverything --skill pentesting-everything --agent cursor
+```
 
