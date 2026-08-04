@@ -1,48 +1,64 @@
-# Centsy 🪙
+# Centsy
 
-Centsy is a modern, AI-powered finance tracker designed to eliminate manual data entry and provide actionable financial coaching. Built with a strict dual-mode architecture, it allows users to seamlessly manage both personal and business finances under a single account. By leveraging Vision AI to parse paper receipts, POS screens, and invoices, Centsy automatically categorizes spending and delivers proactive insights to help users optimize their financial health.
+AI-powered personal and business finance tracker — **mobile-first**, backed by a live PostgreSQL ledger and **Centsy AI** (OpenRouter + RAG).
 
-## Core Features
-- **Dual-Mode Architecture:** Seamlessly toggle between isolated Personal and Business environments.
-- **AI-Powered Image Parsing:** Upload any receipt or invoice to automatically extract and categorize transactions.
-- **Proactive Insights:** Actionable coaching to reduce impulsive spending and encourage wealth-building.
-- **Granular Mileage Tracking:** Dedicated logging for gas and trip expenses.
+## Stack
 
-## Agent Skills
+- **Web:** Next.js App Router, Tailwind, shadcn/ui
+- **Mobile:** Expo Go (SDK 54) in `mobile/`
+- **Auth:** Email/password sessions (httpOnly cookie + Bearer token for Expo)
+- **DB:** PostgreSQL via Prisma
+- **AI:** OpenRouter LLM + retrieval over live user transactions
 
-This project includes skills from curated registries and security knowledge bases:
-
-| Registry | Source | What's included |
-|----------|--------|-----------------|
-| **Design skills** (67) | [bergside/awesome-design-skills](https://github.com/bergside/awesome-design-skills) | UI design system skills in `.cursor/skills/` (clean, minimal, glassmorphism, etc.) |
-| **Agent skills catalog** | [VoltAgent/awesome-agent-skills](https://github.com/VoltAgent/awesome-agent-skills) | Browsable index of 1,400+ official and community skills |
-| **Pentesting** | [m14r41/PentestingEverything](https://github.com/m14r41/PentestingEverything) | Authorized security assessment workflow + full knowledge base submodule |
-| **Stripe** | [stripe/ai](https://github.com/stripe/ai) | Payment integration best practices (`stripe-best-practices`) |
-
-Registries are vendored as git submodules under `.cursor/skills-sources/`.
-
-### Sync skills
+## Setup
 
 ```bash
-./scripts/sync-skills.sh
+npm install
+cp .env.example .env.local
+# Set DATABASE_URL and OPENROUTER_API_KEY
+
+npx prisma migrate dev --name init_live
+npm run dev
 ```
 
-Updates submodules and copies the latest design and pentesting skill files into `.cursor/skills/`.
+Create your real account at `/signup`, then use Snap / dashboard / `/ai`.
 
-### Install a skill from the agent catalog
-
-Browse `.cursor/skills-sources/awesome-agent-skills/README.md`, then:
+### Expo Go
 
 ```bash
-./scripts/install-agent-skill.sh stripe/ai@stripe-best-practices
+cd mobile && npm install
+# mobile/.env → EXPO_PUBLIC_API_URL=http://<lan-ip>:3000
+npm start   # or: npm run mobile from repo root
 ```
 
-Installed skills are placed in `.cursor/skills/<name>/` for Cursor.
+Sign in from the **You** tab.
 
-### PentestingEverything
+## Centsy AI
 
-The `pentesting-everything` skill guides authorized security assessments. The full knowledge base lives at `.cursor/skills-sources/pentesting-everything/` (108 docs, 23 domains). Install standalone with:
+- UI: `/ai` (web) and `mobile/app/ai.tsx`
+- API: `GET/POST /api/ai/chat`
+- Architecture notes: [`docs/CENTSY_AI.md`](docs/CENTSY_AI.md)
+
+RAG always loads Personal **and** Business summaries plus recent transactions so questions like “compare my modes” work.
+
+## Simulation / agent testing
+
+Four personas (single mom, CEO, college student, couple + dog):
 
 ```bash
-npx skills add m14r41/PentestingEverything --skill pentesting-everything --agent cursor
+npm run sim:seed -- --all
+npm run sim:eval -- --persona college_student
 ```
+
+Details: [`scripts/simulation/README.md`](scripts/simulation/README.md)
+
+## Key paths
+
+| Area | Path |
+|------|------|
+| Prisma schema | `prisma/schema.prisma` |
+| Auth | `src/lib/auth.ts`, `src/app/api/auth/*` |
+| Dashboard API | `src/app/api/dashboard` |
+| Centsy AI RAG | `src/lib/centsy-ai/` |
+| Shared types | `shared/` |
+| Expo client | `mobile/` |

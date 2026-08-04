@@ -1,0 +1,58 @@
+{
+  "expo": {
+    "name": "Centsy",
+    "slug": "centsy",
+    "version": "0.1.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "scheme": "centsy",
+    "userInterfaceStyle": "light",
+    "newArchEnabled": true,
+    "splash": {
+      "image": "./assets/splash-icon.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#f4fbfa"
+    },
+    "androidStatusBar": {
+      "backgroundColor": "#f4fbfa",
+      "barStyle": "dark-content"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "app.centsy.mobile",
+      "infoPlist": {
+        "NSCameraUsageDescription": "Centsy uses the camera to snap receipts and invoices.",
+        "NSPhotoLibraryUsageDescription": "Centsy lets you choose receipt photos from your library."
+      }
+    },
+    "android": {
+      "adaptiveIcon": {
+        "backgroundColor": "#0f766e",
+        "foregroundImage": "./assets/android-icon-foreground.png",
+        "backgroundImage": "./assets/android-icon-background.png",
+        "monochromeImage": "./assets/android-icon-monochrome.png"
+      },
+      "package": "app.centsy.mobile",
+      "permissions": ["CAMERA", "READ_MEDIA_IMAGES"]
+    },
+    "web": {
+      "favicon": "./assets/favicon.png",
+      "bundler": "metro"
+    },
+    "plugins": [
+      "expo-router",
+      "expo-font",
+      "expo-notifications",
+      [
+        "expo-image-picker",
+        {
+          "cameraPermission": "Allow Centsy to use your camera to snap receipts.",
+          "photosPermission": "Allow Centsy to access photos of receipts."
+        }
+      ]
+    ],
+    "experiments": {
+      "typedRoutes": true
+    }
+  }
+}

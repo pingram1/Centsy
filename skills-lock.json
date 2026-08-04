@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "skills": {
+    "awesome-design-skills": {
+      "source": ".cursor/skills-sources/awesome-design-skills",
+      "remote": "https://github.com/bergside/awesome-design-skills.git"
+    },
+    "awesome-agent-skills": {
+      "source": ".cursor/skills-sources/awesome-agent-skills",
+      "remote": "https://github.com/antfu/awesome-agent-skills.git"
+    },
+    "pentesting-everything": {
+      "source": ".cursor/skills-sources/pentesting-everything",
+      "remote": "https://github.com/m14r41/PentestingEverything.git"
+    }
+  }
+}
